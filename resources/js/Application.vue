@@ -1,6 +1,8 @@
 <template>
     <div id="application">
-        <topMenu></topMenu>
+        <template v-if="show_top_menu">
+            <topMenu ></topMenu>
+        </template>
         <router-view></router-view>
     </div>
 </template>
@@ -12,6 +14,12 @@ export default {
     name: 'Application',
     components: {
         topMenu
+    },
+    computed: {
+        show_top_menu: function () {
+            if (typeof (this.$route.meta.show_top_menu) === 'undefined') return true;
+            return Boolean(this.$route.meta.show_top_menu);
+        }
     }
 }
 </script>

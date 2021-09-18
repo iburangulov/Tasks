@@ -28,5 +28,14 @@ export default new VueRouter({
            name: 'signup',
            component: () => import('../components/views/signup')
        },
-   ]
+
+       {
+           path: '*',
+           name: '404',
+           component: () => import('../components/errors/404'),
+           meta: {
+               'show_top_menu': false
+           }
+       },
+   ],
 });

@@ -20,7 +20,9 @@
         "vue-loader": "^15.9.8",
         "vue-router": "^3.5.2",
         "vue-template-compiler": "^2.6.14",
-        "sass-loader": "^12.1.0"
+        "sass-loader": "^12.1.0",
+        "vuex": "^3.6.2"
     },
-    "dependencies": {}
+    "dependencies": {
+    }
 }
