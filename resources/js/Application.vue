@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="application">
         <topMenu></topMenu>
         <router-view></router-view>
     </div>
@@ -15,3 +15,12 @@ export default {
     }
 }
 </script>
+
+<style scoped lang="sass">
+
+#application
+    min-width: 100vw
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+</style>

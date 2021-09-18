@@ -17,6 +17,16 @@ export default new VueRouter({
            path: '/tasks',
            name: 'tasks',
            component: () => import('../components/views/tasks')
-       }
+       },
+       {
+           path: '/signin',
+           name: 'signin',
+           component: () => import('../components/views/signin')
+       },
+       {
+           path: '/signup',
+           name: 'signup',
+           component: () => import('../components/views/signup')
+       },
    ]
 });
