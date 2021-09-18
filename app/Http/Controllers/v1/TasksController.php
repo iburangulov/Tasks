@@ -26,7 +26,15 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        return response();
+        $task = Task::make([
+            'title' => $request->title,
+            'description' => $request->description,
+            'time_estimated' => $request->time_estimated,
+            'time_logged' => $request->time_logged,
+            'color' => $request->color,
+        ]);
+        $task->save();
+        return response($task);
     }
 
     /**
