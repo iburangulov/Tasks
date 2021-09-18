@@ -23,6 +23,9 @@
                 </div>
                 <div v-if="creating">
                     Creating...
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
                 <div v-if="!creating_result" class="create-task-error">
                     <guiButton @click="creating_result = !creating_result">Close</guiButton>
@@ -35,9 +38,16 @@
         <div v-else-if="tasks.length === 0">No tasks!</div>
         <div v-else>
             <h1>Tasks</h1>
-            <ul v-for="task in tasks" :key="task.id">
-                {{ task }}
-            </ul>
+            <div class="tasks-list">
+                <div class="task" v-for="task in tasks" :key="task.id" :style="{ backgroundColor: task.color }">
+                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-description">{{ task.description }}</div>
+                    <div class="task-time_estimated">{{ task.time_estimated }}</div>
+                    <div class="task-time_logged">{{ task.time_logged }}</div>
+                    <div class="task-created_at">{{ task.created_at }}</div>
+                    <div class="task-updated_at">{{ task.updated_at }}</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -136,5 +146,17 @@ export default {
 
             .control-block
                 display: flex
+
+
+.tasks-list
+    display: flex
+    flex-wrap: wrap
+    flex-direction: row
+
+    .task
+        width: 300px
+        height: 450px
+        border: 1px solid #f0f0f0
+        padding: 5px
 
 </style>

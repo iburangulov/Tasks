@@ -25,7 +25,7 @@ export default new Vuex.Store({
             state.application.tasks.error = Boolean(error)
         },
         push_task(state, task) {
-            state.application.tasks.data.push(task);
+            state.application.tasks.data.unshift(task);
         }
     },
     actions: {
