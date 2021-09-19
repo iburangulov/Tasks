@@ -8,7 +8,7 @@
         />
         <guiAlert v-if="have_errors" :text="showing_alert_text" @close_click="alert_close_click"/>
         <div class="tasks-list">
-            <task v-for="task in tasks" :key="task.id" :task="task" />
+            <task v-for="task in tasks" :key="task.id" :task="task" :disabled="tasks_loading"/>
         </div>
     </div>
 </template>
@@ -50,6 +50,7 @@ export default {
             tasks_creating_errors: 'tasks_creating_errors',
             tasks_updating_errors: 'tasks_updating_errors',
             tasks_deleting_errors: 'tasks_deleting_errors',
+            tasks_loading: 'tasks_loading',
             tasks: 'tasks',
         }),
         have_errors: function () {

@@ -2,7 +2,6 @@
     <div class="control-panel">
         <guiButton text="Reload" @click="reload_click" />
         <guiButton text="Create" @click="$emit('create_task_click')" />
-        <guiButton text="Edit" @click="$emit('edit_task_click')" />
         <guiButton text="Delete" @click="$emit('delete_task_click')" />
     </div>
 </template>

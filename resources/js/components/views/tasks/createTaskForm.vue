@@ -1,18 +1,21 @@
 <template>
-    <div class="create-task-form">
-        <div class="create-task-header">
-            <guiButton @click="save_create_task_form_click" text="Save"/>
-            <guiButton @click="$emit('hide_create_task_form_click')" text="Cancel"/>
-        </div>
-        <div class="create-task-body">
-            <div class="create-task-form-inputs">
-                <guiInput type="text" placeholder="Title" :disabled="inputs_disabled" @update="change_title"/>
-                <guiInput type="text" placeholder="Time estimated" :disabled="inputs_disabled" @update="change_time_estimated"/>
-                <guiInput type="text" placeholder="Color" :disabled="inputs_disabled" @update="change_color" :default_value="color"/>
-                <guiTextarea placeholder="Description" :disabled="inputs_disabled" :rows="17" @update="change_description"/>
+    <div>
+        <div class="create-task-form">
+            <div class="create-task-header">
+                <guiButton @click="save_create_task_form_click" text="Save"/>
+                <guiButton @click="$emit('hide_create_task_form_click')" text="Cancel"/>
             </div>
+            <div class="create-task-body">
+                <div class="create-task-form-inputs">
+                    <guiInput type="text" placeholder="Title" :disabled="inputs_disabled" @update="change_title"/>
+                    <guiInput type="text" placeholder="Time estimated" :disabled="inputs_disabled" @update="change_time_estimated"/>
+                    <guiInput type="text" placeholder="Color" :disabled="inputs_disabled" @update="change_color" :default_value="color"/>
+                    <guiTextarea placeholder="Description" :disabled="inputs_disabled" :rows="17" @update="change_description"/>
+                </div>
+            </div>
+            <guiAlert v-if="show_success_creating" text="Success!" @close_click="task_success_created" />
         </div>
-        <guiAlert v-if="show_success_creating" text="Success!" @close_click="task_success_created" />
+        <div class="create-task-bg" @click="$emit('hide_create_task_form_click')" />
     </div>
 </template>
 
@@ -104,4 +107,12 @@ export default {
 
         .create-task-form-inputs
             height: 100%
+
+.create-task-bg
+    position: fixed
+    z-index: 99
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
 </style>
