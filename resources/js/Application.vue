@@ -27,7 +27,7 @@ export default {
 <style scoped lang="sass">
 
 #application
-    min-width: 100vw
+    width: 100%
     min-height: 100vh
     display: flex
     flex-direction: column

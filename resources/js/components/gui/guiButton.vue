@@ -1,23 +1,26 @@
 <template>
     <button @click="$emit('click')">
-        <slot></slot>
+        {{ text }}
     </button>
 </template>
 
 <script>
 export default {
-    name: "guiButton"
+    name: "guiButton",
+    props: {
+        text: String
+    }
 }
 </script>
 
 <style scoped lang="sass">
 button
-    padding: 10px 20px
     border: 0
     display: block
-    margin-right: 5px
-    max-width: 10em
+    margin: 5px
+    width: 100px
+    height: 40px
 
     &:active
-        background-color: blue
+        background-color: dimgray
 </style>
