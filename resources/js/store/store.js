@@ -207,6 +207,9 @@ export default new Vuex.Store({
         is_authorized: function (state) {
             return state.account.authorized;
         },
+        has_authorize_errors: function (state) {
+            return state.account.authorize_errors;
+        },
         get_token: function (state) {
             return state.account.token;
         }

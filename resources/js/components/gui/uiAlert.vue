@@ -1,8 +1,13 @@
 <template>
-    <div>
-        alert
+    <div id="signin-error-modal" class="modal">
+        <div class="modal-content">
+            <h4>{{ header }}</h4>
+            <p>{{ text }}</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-close waves-effect waves-green btn-flat" @click="$emit('close')">Close</a>
+        </div>
     </div>
-
 </template>
 
 <script>
@@ -10,6 +15,19 @@ import uiButton from "./uiButton";
 
 export default {
     name: "uiAlert",
+    props: {
+        header: {
+            type: String,
+            default: ''
+        },
+        text: {
+            type: String,
+            default: '',
+        }
+    },
+    mounted() {
+        M.Modal.init(document.getElementById('signin-error-modal'));
+    },
     components: {
         uiButton,
     }
@@ -17,15 +35,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.ui-alert
-    position: fixed
-    z-index: 1000
-    top: 40%
-    left: 50%
-    transform: translateX(-50%) translateY(-50%)
-    display: flex
-    justify-content: center
-    align-items: center
-
+.modal
+    width: 400px
 
 </style>
