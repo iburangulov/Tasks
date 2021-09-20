@@ -1,12 +1,12 @@
 <template>
-    <a class="waves-effect waves-light btn" @click="$emit('click')">
+    <a class="waves-effect waves-light btn-large" @click="$emit('click')">
         <slot/>
     </a>
 </template>
 
 <script>
 export default {
-    name: "uiButton"
+    name: "uiButton",
 }
 </script>
 
