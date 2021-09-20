@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'user'], function () {
 
         Route::post('/signup', [\App\Http\Controllers\api\v1\AuthController::class, 'signUp']);
+        Route::post('/signin', [\App\Http\Controllers\api\v1\AuthController::class, 'signIn']);
 
     });
 

@@ -16,6 +16,7 @@
 </template>
 
 <script>
+//TODO Сделать валидацию инпутов
 import uiButton from "../gui/uiButton";
 import uiInput from "../gui/uiInput";
 
@@ -38,6 +39,12 @@ export default {
         signin_click: function () {
             if (this.loading) return;
             this.loading = true;
+            this.$store.dispatch('signin', {
+                email: this.email,
+                password: this.password,
+            }).then(() => {
+                this.loading = false;
+            });
         }
     },
     components: {

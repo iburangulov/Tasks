@@ -21,11 +21,22 @@ export default new Vuex.Store({
         },
         account: {
             authorized: false,
+            authorize_errors: false,
             token: '1|wXLo3GHJKWtUxFrbSbWoD3W0ahmiYFXsqeVSa5xF',
             // token: '1|wXLo3GHJKWtUxFrbSbWoD3W0ahmiYFXsqeVSa5xF',
         }
     },
     mutations: {
+        authorize(state, token) {
+            this.state.account.authorized = true;
+            this.state.account.token = token;
+        },
+        unauthorize(state, errors = false) {
+            this.state.account.authorized = false;
+            this.state.account.token = '';
+            this.state.account.authorize_errors = Boolean(errors);
+        },
+
         start_loading(state) {
             state.application.tasks.loading = true;
             state.application.tasks.loading_errors = false;
@@ -142,7 +153,28 @@ export default new Vuex.Store({
         async signup(context, data) {
             const result = await axios.post('/api/v1/user/signup', data);
             console.log(result);
+        },
+
+
+        async signin(context, data) {
+            try {
+                const result = await axios.post('/api/v1/user/signin', {
+                    email: data.email,
+                    password: data.password,
+                    device_name: 'spa'
+                });
+                if (result.status === 200) {
+                    context.commit('authorize');
+                    return;
+                }
+            } catch (e) {
+            }
+            context.commit('unauthorize', true);
+        },
+        signout(context) {
+            context.commit('unauthorize');
         }
+
     },
     getters: {
         tasks: function (state) {
