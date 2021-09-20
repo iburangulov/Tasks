@@ -3,10 +3,13 @@
         <div class="col s6 offset-s3">
             <div class="row">
                 <form @submit.prevent class="col s12">
-                    <uiInput label="Email" @update="email_update" type="email"/>
-                    <uiInput label="Password" @update="password_update" type="password"/>
-                    <uiButton @click="signin_click">Sign In</uiButton>
+                    <uiInput label="Email" @update="email_update" type="email" :disabled="loading"/>
+                    <uiInput label="Password" @update="password_update" type="password" :disabled="loading"/>
+                    <uiButton @click="signin_click" :disabled="loading">Sign In</uiButton>
                 </form>
+            </div>
+            <div class="row progress" v-if="loading">
+                <div class="indeterminate"></div>
             </div>
         </div>
     </div>
@@ -22,6 +25,7 @@ export default {
         return {
             email: '',
             password: '',
+            loading: false,
         }
     },
     methods: {
@@ -32,7 +36,8 @@ export default {
             this.password = e;
         },
         signin_click: function () {
-
+            if (this.loading) return;
+            this.loading = true;
         }
     },
     components: {
