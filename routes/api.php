@@ -19,5 +19,17 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::apiResource('tasks', \App\Http\Controllers\api\v1\TasksController::class);
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+
+        Route::apiResource('tasks', \App\Http\Controllers\api\v1\TasksController::class);
+
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+
+        Route::post('/signup', [\App\Http\Controllers\api\v1\AuthController::class, 'signUp']);
+
+    });
+
 });

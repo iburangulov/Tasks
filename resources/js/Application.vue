@@ -15,6 +15,19 @@ export default {
     components: {
         topMenu
     },
+    beforeUpdate() {
+        this.check_auth();
+    },
+    mounted() {
+        this.check_auth();
+    },
+    methods: {
+      check_auth() {
+          if (this.$route.meta.auth !== false && !this.$store.getters.is_authorized) {
+              this.$router.push({ name: 'signin' });
+          }
+      }
+    },
     computed: {
         show_top_menu: function () {
             if (typeof (this.$route.meta.show_top_menu) === 'undefined') return true;

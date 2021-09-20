@@ -18,6 +18,11 @@ export default new Vuex.Store({
                 deleting_errors: false,
                 data: [],
             }
+        },
+        account: {
+            authorized: false,
+            token: '1|wXLo3GHJKWtUxFrbSbWoD3W0ahmiYFXsqeVSa5xF',
+            // token: '1|wXLo3GHJKWtUxFrbSbWoD3W0ahmiYFXsqeVSa5xF',
         }
     },
     mutations: {
@@ -77,7 +82,11 @@ export default new Vuex.Store({
             context.commit('start_loading');
             let errors = false;
             try {
-                const result = await axios.get('/api/v1/tasks');
+                const result = await axios.get('/api/v1/tasks', {
+                    headers: {
+                        Authorization: 'Bearer ' + context.getters.get_token
+                    }
+                });
                 context.commit('set_tasks', result.data);
             } catch (e) {
                 errors = true;
@@ -129,6 +138,10 @@ export default new Vuex.Store({
         },
         clear_errors(context) {
             context.commit('clear_errors');
+        },
+        async signup(context, data) {
+            const result = await axios.post('/api/v1/user/signup', data);
+            console.log(result);
         }
     },
     getters: {
@@ -159,5 +172,11 @@ export default new Vuex.Store({
         tasks_deleting_errors: function (state) {
             return state.application.tasks.deleting_errors;
         },
+        is_authorized: function (state) {
+            return state.account.authorized;
+        },
+        get_token: function (state) {
+            return state.account.token;
+        }
     }
 });

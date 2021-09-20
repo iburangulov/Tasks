@@ -11,7 +11,10 @@ export default {
       }
     },
     props: {
-        type: String,
+        type: {
+            type: String,
+            default: 'text'
+        },
         placeholder: String,
         disabled: Boolean,
         default_value: {
