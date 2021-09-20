@@ -56,6 +56,8 @@ export default {
                 if (this.has_authorize_errors) {
                     const modal = document.getElementById('signin-error-modal')
                     M.Modal.getInstance(modal).open();
+                } else {
+                    this.$router.push({name: 'index'});
                 }
             });
         },

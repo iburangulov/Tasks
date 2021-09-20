@@ -1,7 +1,7 @@
 <template>
     <div id="application">
         <template v-if="show_top_menu">
-            <topMenu ></topMenu>
+            <topMenu></topMenu>
         </template>
         <router-view></router-view>
     </div>
@@ -17,16 +17,22 @@ export default {
     },
     beforeUpdate() {
         this.check_auth();
+        this.check_guest();
     },
     mounted() {
         this.check_auth();
     },
     methods: {
-      check_auth() {
-          if (this.$route.meta.auth !== false && !this.$store.getters.is_authorized) {
-              this.$router.push({ name: 'signin' });
-          }
-      }
+        check_auth() {
+            if (this.$route.meta.auth !== false && !this.$store.getters.is_authorized) {
+                this.$router.push({name: 'signin'});
+            }
+        },
+        check_guest() {
+            if (this.$route.meta.guest === true && this.$store.getters.is_authorized) {
+                this.$router.push({name: 'index'});
+            }
+        },
     },
     computed: {
         show_top_menu: function () {
