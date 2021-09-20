@@ -1,15 +1,36 @@
 <template>
-    <div class="top-menu">
-        <div class="links">
-            <router-link :to="{ name: 'index' }" class="router-link" exact>Main</router-link>
-            <router-link :to="{ name: 'tasks' }" class="router-link" v-if="$store.getters.is_authorized">Tasks
-            </router-link>
+    <nav class="teal darken-1">
+        <div class="nav-wrapper">
+            <ul class="left hide-on-med-and-down">
+                <router-link :to="{ name: 'index' }" class="router-link" exact v-slot="{ href, navigate, isActive }">
+                    <li :class="{active: isActive}">
+                        <a :href="href" @click="navigate">Main</a>
+                    </li>
+                </router-link>
+                <router-link :to="{ name: 'tasks' }" class="router-link" exact v-slot="{ href, navigate, isActive }"
+                             v-if="$store.getters.is_authorized">
+                    <li :class="{active: isActive}">
+                        <a :href="href" @click="navigate">Tasks</a>
+                    </li>
+                </router-link>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <router-link :to="{ name: 'signin' }" class="router-link" exact v-slot="{ href, navigate, isActive }"
+                             v-if="!$store.getters.is_authorized">
+                    <li :class="{active: isActive}">
+                        <a :href="href" @click="navigate">Sign In</a>
+                    </li>
+                </router-link>
+                <router-link :to="{ name: 'signup' }" class="router-link" exact v-slot="{ href, navigate, isActive }"
+                             v-if="!$store.getters.is_authorized">
+                    <li :class="{active: isActive}">
+                        <a :href="href" @click="navigate">Sign Up</a>
+                    </li>
+                </router-link>
+            </ul>
         </div>
-        <div class="links-right" v-if="!$store.getters.is_authorized">
-            <router-link :to="{ name: 'signin' }" class="router-link align-right">Sign In</router-link>
-            <router-link :to="{ name: 'signup' }" class="router-link align-right">Sign Up</router-link>
-        </div>
-    </div>
+    </nav>
+
 </template>
 
 <script>
