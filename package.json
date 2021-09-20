@@ -24,5 +24,6 @@
         "vuex": "^3.6.2"
     },
     "dependencies": {
+        "materialize-css": "^1.0.0-rc.2"
     }
 }
