@@ -8,12 +8,12 @@
                     <uiButton @click="signin_click" :disabled="loading">Sign In</uiButton>
                 </form>
             </div>
-            <uiAlert
-                v-if="has_authorize_errors"
-                @close="close_error_alert"
-                header="Error"
-                text="Something wrong, try again"
-            />
+            <!--            <uiAlert-->
+            <!--                v-if="has_authorize_errors"-->
+            <!--                @close="close_error_alert"-->
+            <!--                header="Error"-->
+            <!--                text="Something wrong, try again"-->
+            <!--            />-->
             <div class="row progress" v-if="loading">
                 <div class="indeterminate"></div>
             </div>
@@ -53,23 +53,14 @@ export default {
                 password: this.password,
             }).then(() => {
                 this.loading = false;
-                if (this.has_authorize_errors) {
-                    const modal = document.getElementById('signin-error-modal')
-                    M.Modal.getInstance(modal).open();
-                } else {
-                    this.$router.push({name: 'index'});
-                }
+                this.$router.push({name: 'index'});
             });
         },
         close_error_alert: function () {
             this.$store.dispatch('signout');
         },
     },
-    computed: {
-        ...mapGetters({
-            has_authorize_errors: 'has_authorize_errors',
-        }),
-    },
+    computed: {},
     components: {
         uiButton,
         uiInput,

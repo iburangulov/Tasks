@@ -28,18 +28,28 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return Response::noContent(403);
         }
-        return $user->createToken($request->device_name)->plainTextToken;
+        return Response::make($user->createToken($request->device_name)->plainTextToken);
     }
 
-    public function signUp(Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function signUp(Request $request): \Illuminate\Http\Response
     {
+        //TODO validation
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required'
+        ]);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => \Hash::make($request->password),
         ]);
-        $token = $user->createToken('api_token');
+        $token = $user->createToken($request->device_name);
         return Response::make($token->plainTextToken);
     }
-
 }
