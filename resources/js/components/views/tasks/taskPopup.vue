@@ -20,14 +20,6 @@ export default {
             type: Object,
             required: true,
         },
-        editing: {
-            type: Boolean,
-            required: true,
-        },
-        opening: {
-            type: Boolean,
-            required: true,
-        }
     },
     data() {
         return {

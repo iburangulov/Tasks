@@ -19,9 +19,7 @@
             text="Something wrong, try again"
         />
         <taskPopup
-            v-if="task_edited || task_opened"
-            :editing="task_edited"
-            :opening="task_opened"
+            v-if="task_opened"
             :task="task_choosen"
             @close_task_modal="task_close_click"
         />
@@ -42,7 +40,6 @@ export default {
     data: function () {
         return {
             tasks_loading: false,
-            task_edited: false,
             task_opened: false,
             task_choosen: null,
         }
@@ -64,19 +61,16 @@ export default {
             M.Modal.getInstance(document.getElementById('tasks-error-modal')).open();
         },
         task_edit_click(task) {
-            this.task_choosen = task;
-            this.task_opened = true;
-            this.task_edited = true;
+            // this.task_choosen = task;
+            // this.task_opened = true;
         },
         task_open_click(task) {
             this.task_choosen = task;
             this.task_opened = true;
-            this.task_edited = false;
         },
         task_close_click() {
             this.task_choosen = null;
             this.task_opened = false;
-            this.task_edited = false;
         },
     },
     computed: {

@@ -22,8 +22,8 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->realTextBetween(10, 40),
-            'description' => $this->faker->realText(),
+            'title' => $this->faker->realTextBetween(10),
+            'description' => $this->faker->realText(4000),
             'time_estimated' => rand(60, 600),
         ];
     }

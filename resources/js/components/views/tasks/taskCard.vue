@@ -7,8 +7,9 @@
                 </div>
             </div>
             <div class="card-content white-text">
+                <hr :style="{ backgroundColor: task.color }">
                 <span class="card-title">{{ task.title }}</span>
-                <p>{{ task.description }}</p>
+                <p>{{ short_description }}</p>
             </div>
             <div class="card-action">
                 <div class="fixed-action-btn btn-task-control" :id="'btn-task-control' + this._uid"
@@ -17,7 +18,7 @@
                         <i class="large material-icons">menu</i>
                     </a>
                     <ul>
-                        <li><a class="btn-floating orange darken-1" @click="open_click"><i
+                        <li><a class="btn-floating orange darken-1" @click="edit_click"><i
                             class="material-icons">mode_edit</i></a>
                         </li>
                         <li><a class="btn-floating yellow darken-1" @click="open_click"><i
@@ -72,6 +73,17 @@ export default {
         open_click() {
             this.$emit('open_click', this.task);
         },
+        edit_click() {
+            this.$emit('edit_click', this.task);
+        },
+    },
+    computed: {
+        short_description: function () {
+            if (!this.task.description) {
+                return '';
+            }
+            return this.task.description.substr(0, 240) + '...'
+        },
     },
     components: {
         uiButton,
@@ -90,6 +102,9 @@ export default {
     align-items: center
 
 .card-content
+    hr
+        height: 3px
+        border: none
     p
         word-break: break-all
 
