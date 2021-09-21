@@ -24,7 +24,6 @@ export default new VueRouter({
             component: () => import('../components/views/signin'),
             meta: {
                 auth: false,
-                guest: true,
             }
         },
         {
@@ -33,7 +32,6 @@ export default new VueRouter({
             component: () => import('../components/views/signup'),
             meta: {
                 auth: false,
-                guest: true,
             }
         },
 

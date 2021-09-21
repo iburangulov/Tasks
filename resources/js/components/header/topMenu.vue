@@ -3,7 +3,7 @@
         <div class="nav-wrapper">
             <ul class="left hide-on-med-and-down">
                 <router-link :to="{ name: 'index' }" class="router-link" exact v-slot="{ href, navigate, isActive }"
-                             custom>
+                             v-if="$store.getters.authorized" custom>
                     <li :class="{active: isActive}">
                         <a :href="href" @click="navigate">Main</a>
                     </li>
@@ -38,34 +38,13 @@
 </template>
 
 <script>
-import guiButton from "../gui/guiButton";
 
 export default {
     name: "topMenu",
     components: {
-        guiButton,
     }
 }
 </script>
 
 <style scoped lang="sass">
-.top-menu
-  background-color: coral
-  height: 100px
-  display: flex
-  justify-content: space-between
-
-  a.router-link
-    padding: 0 30px
-
-    &.router-link-active
-      text-decoration: underline
-
-  .links
-    display: flex
-    align-items: center
-
-  .links-right
-    display: flex
-    align-items: center
 </style>
