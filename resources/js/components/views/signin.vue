@@ -8,15 +8,11 @@
                     <uiButton @click="signin_click" :disabled="loading">Sign In</uiButton>
                 </form>
             </div>
-            <!--            <uiAlert-->
-            <!--                v-if="has_authorize_errors"-->
-            <!--                @close="close_error_alert"-->
-            <!--                header="Error"-->
-            <!--                text="Something wrong, try again"-->
-            <!--            />-->
-            <div class="row progress" v-if="loading">
-                <div class="indeterminate"></div>
-            </div>
+            <uiAlert
+                @close="close_error_alert"
+                header="Error"
+                text="Something wrong, try again"
+            />
         </div>
     </div>
 </template>
@@ -47,20 +43,26 @@ export default {
         },
         signin_click: function () {
             if (this.loading) return;
-            this.loading = true;
             this.$store.dispatch('signin', {
                 email: this.email,
                 password: this.password,
             }).then(() => {
-                this.loading = false;
-                this.$router.push({name: 'index'});
+                if (!this.authorized) {
+                    M.Modal.getInstance(document.getElementById('signin-error-modal')).open();
+                } else {
+                    this.$router.push({name: 'index'});
+                }
             });
         },
         close_error_alert: function () {
             this.$store.dispatch('signout');
         },
     },
-    computed: {},
+    computed: {
+        ...mapGetters({
+            authorized: 'authorized',
+        }),
+    },
     components: {
         uiButton,
         uiInput,

@@ -21,7 +21,7 @@ export default {
         this.$store.dispatch('init').then(() => {
             if (this.$route.meta.auth !== false && !this.$store.getters.authorized) {
                 this.$router.push({ name: 'signin' });
-            } else if (this.$route.meta.guest !== false && this.$store.getters.authorized) {
+            } else if (this.$route.meta.guest === true && this.$store.getters.authorized) {
                 this.$router.push({ name: 'index' });
             }
 

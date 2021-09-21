@@ -1,5 +1,9 @@
 <template>
-    <div class="freeze"></div>
+    <div class="freeze">
+        <div class="row progress">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -16,6 +20,11 @@ export default {
     bottom: 0
     left: 0
     right: 0
-    background-color: white
-    opacity: .5
+    background-color: rgba(255, 255, 255, 0.5)
+    display: flex
+    align-items: center
+
+    .progress
+        width: 40%
+
 </style>
