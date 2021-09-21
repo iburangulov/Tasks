@@ -29,7 +29,7 @@
                     </li>
                 </router-link>
                 <li v-if="$store.getters.authorized">
-                    <a @click.prevent="$store.dispatch('signout')">Sign Out</a>
+                    <a @click.prevent="signout">Sign Out</a>
                 </li>
             </ul>
         </div>
@@ -41,8 +41,12 @@
 
 export default {
     name: "topMenu",
-    components: {
-    }
+    methods: {
+        signout: function () {
+            this.$store.dispatch('signout');
+            this.$router.push({name: 'signin'});
+        },
+    },
 }
 </script>
 
