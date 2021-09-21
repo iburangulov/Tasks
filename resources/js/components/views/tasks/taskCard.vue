@@ -17,8 +17,11 @@
                         <i class="large material-icons">mode_edit</i>
                     </a>
                     <ul>
-                        <li><a class="btn-floating green"><i class="material-icons">visibility</i></a></li>
-                        <li><a class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                        <li><a class="btn-floating green" @click="open_click"><i
+                            class="material-icons">visibility</i></a>
+                        </li>
+                        <li><a class="btn-floating yellow darken-1" @click="edit_click"><i
+                            class="material-icons">edit</i></a></li>
                         <li><a class="btn-floating red" @click="delete_click"><i class="material-icons">delete</i></a>
                         </li>
                         <li><a class="btn-floating blue"><i class="material-icons">turned_in_not</i></a></li>
@@ -64,6 +67,12 @@ export default {
                 }
                 this.self_loading = false;
             });
+        },
+        open_click() {
+            this.$emit('open_click', this.task);
+        },
+        edit_click() {
+            this.$emit('edit_click', this.task);
         },
     },
     components: {
