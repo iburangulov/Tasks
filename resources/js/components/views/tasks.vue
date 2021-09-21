@@ -1,9 +1,10 @@
 <template>
     <div class="container">
         <div class="row">
-            <taskCard v-for="task in tasks" :key="task.id" :task="task"/>
+<!--            <uiButton @click="load_tasks">Reload</uiButton>-->
+            <taskCard v-for="task in tasks" :key="task.id" :task="task" :loading="tasks_loading"/>
         </div>
-        <div v-if="tasks_loading">Loading...</div>
+        <div v-if="tasks_loading && tasks.length === 0">Loading...</div>
         <uiAlert
             id="tasks-error-modal"
             header="Error"
@@ -15,6 +16,7 @@
 <script>
 import {mapGetters} from "vuex";
 
+import uiButton from "../gui/uiButton";
 import taskCard from "./tasks/taskCard";
 import uiAlert from "../gui/uiAlert";
 
@@ -26,17 +28,18 @@ export default {
         }
     },
     mounted() {
-        this.tasks_loading = true;
-        this.$store.dispatch('load_tasks').then(result => {
-            this.tasks_loading = false;
-            if (!result) {
-                M.Modal.getInstance(document.getElementById('tasks-error-modal')).open();
-            }
-            M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn.btn-task-control'), {
-                direction: 'left'
+        this.load_tasks();
+    },
+    methods: {
+        load_tasks() {
+            this.tasks_loading = true;
+            this.$store.dispatch('load_tasks').then(result => {
+                this.tasks_loading = false;
+                if (!result) {
+                    M.Modal.getInstance(document.getElementById('tasks-error-modal')).open();
+                }
             });
-        });
-
+        }
     },
     computed: {
         ...mapGetters({
@@ -46,6 +49,7 @@ export default {
     components: {
         taskCard,
         uiAlert,
+        uiButton,
     }
 }
 </script>

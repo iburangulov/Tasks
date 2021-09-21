@@ -50,7 +50,7 @@ export default new Vuex.Store({
          */
 
         push_tasks: (state, data) => {
-            state.application.tasks.data.unshift(...data);
+            state.application.tasks.data = data;
         }
 
         /**

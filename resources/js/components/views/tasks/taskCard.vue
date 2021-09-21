@@ -1,13 +1,17 @@
 <template>
-
     <div class="col m6">
         <div class="card blue-grey darken-1">
+            <div v-if="loading" class="task-loading-wrapper">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
             <div class="card-content white-text">
                 <span class="card-title">{{ task.title }}</span>
                 <p>{{ task.description }}</p>
             </div>
             <div class="card-action">
-                <div class="fixed-action-btn btn-task-control">
+                <div class="fixed-action-btn btn-task-control" :id="'btn-task-control' + this._uid" v-show="!loading">
                     <a class="btn-floating btn-large red">
                         <i class="large material-icons">mode_edit</i>
                     </a>
@@ -18,11 +22,9 @@
                         <li><a class="btn-floating blue"><i class="material-icons">turned_in_not</i></a></li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -34,9 +36,17 @@ export default {
         task: {
             type: Object,
             required: true,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
         }
     },
-
+    mounted() {
+        M.FloatingActionButton.init(document.getElementById('btn-task-control' + this._uid), {
+            direction: 'left'
+        });
+    },
     components: {
         uiButton,
     },
@@ -44,6 +54,19 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.task-loading-wrapper
+    background-color: white
+    z-index: 100
+    width: 100%
+    height: 100%
+    position: absolute
+    display: flex
+    align-items: center
+
+.card-content
+    p
+        word-break: break-all
+
 .card-action
     padding-top: 80px
 
