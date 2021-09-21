@@ -16,6 +16,7 @@ class TasksController extends Controller
      */
     public function index()
     {
+        //TODO paginate
         return response(Task::orderBy('created_at', 'DESC')->get());
     }
 

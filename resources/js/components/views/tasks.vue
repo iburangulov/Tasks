@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <h1>Tasks</h1>
+    <div class="container">
+        <div class="row">
+            <taskCard v-for="task in tasks" :key="task.id" :task="task"/>
+        </div>
         <div v-if="tasks_loading">Loading...</div>
-
         <uiAlert
             id="tasks-error-modal"
-            @close="close_error_alert"
             header="Error"
             text="Something wrong, try again"
         />
@@ -13,6 +13,9 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
+import taskCard from "./tasks/taskCard";
 import uiAlert from "../gui/uiAlert";
 
 export default {
@@ -29,15 +32,19 @@ export default {
             if (!result) {
                 M.Modal.getInstance(document.getElementById('tasks-error-modal')).open();
             }
+            M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn.btn-task-control'), {
+                direction: 'left'
+            });
         });
-    },
-    methods: {
-        close_error_alert: function () {
 
-        },
     },
-    computed: {},
+    computed: {
+        ...mapGetters({
+            tasks: 'tasks',
+        }),
+    },
     components: {
+        taskCard,
         uiAlert,
     }
 }
