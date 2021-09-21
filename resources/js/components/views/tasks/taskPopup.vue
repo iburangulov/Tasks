@@ -2,7 +2,7 @@
     <div :id="'task-modal' + this._uid" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4>{{ task.title }}</h4>
-            <p>{{ task.description }}t</p>
+            <p>{{ task.description }}</p>
         </div>
         <div class="modal-footer">
             <uiButton @click="close_modal" :size="2">Close</uiButton>

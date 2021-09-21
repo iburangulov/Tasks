@@ -9,7 +9,13 @@
             <div class="card-content white-text">
                 <hr :style="{ backgroundColor: task.color }">
                 <span class="card-title">{{ task.title }}</span>
-                <p>{{ short_description }}</p>
+                <p class="task-short-description">{{ short_description }}</p>
+                <br>
+                <p>Estimation: {{ task.time_estimated }}</p>
+                <p>Logged: {{ task.time_logged }}</p>
+                <div class="progress">
+                    <div class="determinate" :style="{ width: progress_bar_percent + '%' }"></div>
+                </div>
             </div>
             <div class="card-action">
                 <div class="fixed-action-btn btn-task-control" :id="'btn-task-control' + this._uid"
@@ -84,6 +90,9 @@ export default {
             }
             return this.task.description.substr(0, 240) + '...'
         },
+        progress_bar_percent: function () {
+            return 23;
+        },
     },
     components: {
         uiButton,
@@ -105,7 +114,8 @@ export default {
     hr
         height: 3px
         border: none
-    p
+
+    .task-short-description
         word-break: break-all
 
 .card-action
