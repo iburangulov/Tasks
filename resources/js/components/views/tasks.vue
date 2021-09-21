@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <uiButton @click="load_tasks">Reload</uiButton>
+<!--            <uiButton @click="load_tasks">Reload</uiButton>-->
             <taskCard
                 v-for="task in tasks"
                 :key="task.id"
@@ -11,6 +11,7 @@
             />
         </div>
         <div v-if="tasks_loading && tasks.length === 0">Loading...</div>
+        <actionsPanel @reload_tasks="load_tasks"/>
         <uiAlert
             id="tasks-error-modal"
             header="Error"
@@ -25,6 +26,7 @@ import {mapGetters} from "vuex";
 import uiButton from "../gui/uiButton";
 import taskCard from "./tasks/taskCard";
 import uiAlert from "../gui/uiAlert";
+import actionsPanel from "./tasks/actionsPanel";
 
 export default {
     name: "tasks",
@@ -59,6 +61,7 @@ export default {
         taskCard,
         uiAlert,
         uiButton,
+        actionsPanel,
     }
 }
 </script>

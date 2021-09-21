@@ -51,7 +51,8 @@ export default {
     },
     mounted() {
         M.FloatingActionButton.init(document.getElementById('btn-task-control' + this._uid), {
-            direction: 'left'
+            direction: 'left',
+            hoverEnabled: false,
         });
     },
     methods: {
