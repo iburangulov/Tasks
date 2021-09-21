@@ -1,15 +1,33 @@
 <template>
-    <div class="signup-form">
-        <guiInput placeholder="Name" @update="change_name"/>
-        <guiInput placeholder="Email" type="email" @update="change_email"/>
-        <guiInput placeholder="Password" type="password" @update="change_password"/>
-        <guiButton text="Sign Up" @click="signup_click"/>
+    <div class="row signup">
+        <div class="col s6 offset-s3">
+            <div class="row">
+                <form @submit.prevent class="col s12">
+                    <uiInput label="Name" @update="name_update" type="text" :disabled="loading"/>
+                    <uiInput label="Email" @update="email_update" type="email" :disabled="loading"/>
+                    <uiInput label="Password" @update="password_update" type="password" :disabled="loading"/>
+                    <uiInput label="Confirm password" @update="password_confirm_update" type="password"
+                             :disabled="loading"/>
+                    <uiButton @click="signup_click" :disabled="loading">Sign Up</uiButton>
+                </form>
+            </div>
+            <uiAlert
+                @close="close_error_alert"
+                header="Error"
+                text="Something wrong, try again"
+                id="signup-error-modal"
+            />
+        </div>
     </div>
 </template>
 
 <script>
-import guiInput from "../gui/guiInput";
-import guiButton from "../gui/guiButton";
+//TODO Сделать валидацию инпутов
+import {mapGetters} from "vuex";
+
+import uiInput from "../gui/uiInput";
+import uiButton from "../gui/uiButton";
+import uiAlert from "../gui/uiAlert";
 
 export default {
     name: "signup",
@@ -17,39 +35,57 @@ export default {
         return {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            password_confirmation: '',
+            loading: false,
         }
     },
     methods: {
-        change_name: function (e) {
+        name_update: function (e) {
             this.name = e;
         },
-        change_email: function (e) {
+        email_update: function (e) {
             this.email = e;
         },
-        change_password: function (e) {
+        password_update: function (e) {
             this.password = e;
         },
+        password_confirm_update: function (e) {
+            this.password_confirmation = e;
+        },
         signup_click: function () {
+            if (this.loading) return;
             this.$store.dispatch('signup', {
-               name: this.name,
-               email: this.email,
-               password: this.password,
+                name: this.name,
+                email: this.email,
+                password: this.password,
+            }).then(() => {
+                if (!this.authorized) {
+                    M.Modal.getInstance(document.getElementById('signup-error-modal')).open();
+                } else {
+                    this.$router.push({name: 'index'});
+                }
             });
-        }
+        },
+        close_error_alert: function () {
+            this.$store.dispatch('signout');
+        },
+    },
+    computed: {
+        ...mapGetters({
+            authorized: 'authorized',
+        }),
     },
     components: {
-        guiInput,
-        guiButton,
+        uiInput,
+        uiButton,
+        uiAlert,
     }
 }
 </script>
 
 <style scoped lang="sass">
-.signup-form
-    display: flex
-    flex-direction: column
-    width: 500px
-    margin: 20px auto
+.signup
+    margin: 5% 0
 
 </style>

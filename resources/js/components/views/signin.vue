@@ -9,6 +9,7 @@
                 </form>
             </div>
             <uiAlert
+                id="signin-error-modal"
                 @close="close_error_alert"
                 header="Error"
                 text="Something wrong, try again"
@@ -22,7 +23,6 @@
 import {mapGetters} from "vuex";
 import uiButton from "../gui/uiButton";
 import uiInput from "../gui/uiInput";
-import uiError from "../gui/uiError";
 import uiAlert from "../gui/uiAlert";
 
 export default {
@@ -66,7 +66,6 @@ export default {
     components: {
         uiButton,
         uiInput,
-        uiError,
         uiAlert,
     }
 }

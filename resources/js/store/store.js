@@ -114,7 +114,6 @@ export default new Vuex.Store({
         async signup(context, data) {
             context.commit('start_global_loading');
             context.commit('unauthorize');
-
             try {
                 const result = await axios.post('/api/v1/user/signup', {
                     name: data.name,

@@ -1,5 +1,5 @@
 <template>
-    <div id="signin-error-modal" class="modal">
+    <div :id="id" class="modal">
         <div class="modal-content">
             <h4>{{ header }}</h4>
             <p>{{ text }}</p>
@@ -16,9 +16,13 @@ import uiButton from "./uiButton";
 export default {
     name: "uiAlert",
     props: {
+        id: {
+          type: String,
+          required: true,
+        },
         header: {
             type: String,
-            default: ''
+            default: '',
         },
         text: {
             type: String,
@@ -26,7 +30,7 @@ export default {
         }
     },
     mounted() {
-        M.Modal.init(document.getElementById('signin-error-modal'));
+        M.Modal.init(document.getElementById(this.id));
     },
     components: {
         uiButton,

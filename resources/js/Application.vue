@@ -2,7 +2,7 @@
     <div id="application">
         <uiFreeze v-if="global_loading"/>
         <topMenu v-if="show_top_menu"/>
-        <router-view></router-view>
+        <router-view v-if="!global_loading"></router-view>
     </div>
 </template>
 
