@@ -4,7 +4,7 @@
             <i class="large material-icons">menu</i>
         </a>
         <ul>
-            <li><a class="btn-floating blue"><i class="material-icons">add_circle_outline</i></a></li>
+            <li><a class="btn-floating blue" @click="$emit('create_click')"><i class="material-icons">add_circle_outline</i></a></li>
             <li><a class="btn-floating yellow darken-1" @click="$emit('reload_tasks')"><i class="material-icons">restart_alt</i></a></li>
         </ul>
     </div>

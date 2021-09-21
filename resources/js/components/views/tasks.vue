@@ -12,7 +12,7 @@
             />
         </div>
         <div v-if="tasks_loading && tasks.length === 0">Loading...</div>
-        <actionsPanel @reload_tasks="load_tasks"/>
+        <actionsPanel @reload_tasks="load_tasks" @create_click="task_create_click"/>
         <uiAlert
             id="tasks-error-modal"
             header="Error"
@@ -23,6 +23,7 @@
             :task="task_choosen"
             @close_task_modal="task_close_click"
         />
+        <taskCreatePopup v-if="task_creating"/>
     </div>
 </template>
 
@@ -34,6 +35,7 @@ import taskCard from "./tasks/taskCard";
 import uiAlert from "../gui/uiAlert";
 import actionsPanel from "./tasks/actionsPanel";
 import taskPopup from "./tasks/taskPopup";
+import taskCreatePopup from "./tasks/taskCreatePopup";
 
 export default {
     name: "tasks",
@@ -42,6 +44,7 @@ export default {
             tasks_loading: false,
             task_opened: false,
             task_choosen: null,
+            task_creating: false,
         }
     },
     mounted() {
@@ -72,6 +75,9 @@ export default {
             this.task_choosen = null;
             this.task_opened = false;
         },
+        task_create_click() {
+            this.task_creating = true;
+        },
     },
     computed: {
         ...mapGetters({
@@ -84,6 +90,7 @@ export default {
         uiButton,
         actionsPanel,
         taskPopup,
+        taskCreatePopup,
     }
 }
 </script>
