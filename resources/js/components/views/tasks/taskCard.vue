@@ -13,15 +13,16 @@
             <div class="card-action">
                 <div class="fixed-action-btn btn-task-control" :id="'btn-task-control' + this._uid"
                      v-show="!loading && !self_loading">
-                    <a class="btn-floating btn-large red">
-                        <i class="large material-icons">mode_edit</i>
+                    <a class="btn-floating btn-large teal darken-1">
+                        <i class="large material-icons">menu</i>
                     </a>
                     <ul>
-                        <li><a class="btn-floating green" @click="open_click"><i
+                        <li><a class="btn-floating orange darken-1" @click="open_click"><i
+                            class="material-icons">mode_edit</i></a>
+                        </li>
+                        <li><a class="btn-floating yellow darken-1" @click="open_click"><i
                             class="material-icons">visibility</i></a>
                         </li>
-                        <li><a class="btn-floating yellow darken-1" @click="edit_click"><i
-                            class="material-icons">edit</i></a></li>
                         <li><a class="btn-floating red" @click="delete_click"><i class="material-icons">delete</i></a>
                         </li>
                         <li><a class="btn-floating blue"><i class="material-icons">turned_in_not</i></a></li>
@@ -70,9 +71,6 @@ export default {
         },
         open_click() {
             this.$emit('open_click', this.task);
-        },
-        edit_click() {
-            this.$emit('edit_click', this.task);
         },
     },
     components: {
