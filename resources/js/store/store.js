@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex"
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -13,6 +14,9 @@ export default new Vuex.Store({
         },
         application: {
             global_loading: false,
+            tasks: {
+                data: [],
+            }
         }
     },
     mutations: {
@@ -39,7 +43,19 @@ export default new Vuex.Store({
         },
         finish_global_loading(state) {
             state.application.global_loading = false;
+        },
+
+        /**
+         * Tasks
+         */
+
+        push_tasks: (state, data) => {
+            state.application.tasks.data.unshift(...data);
         }
+
+        /**
+         *
+         */
 
     },
     actions: {
@@ -136,6 +152,28 @@ export default new Vuex.Store({
         },
 
         /**
+         * Загрузка всех задач
+         * @param context
+         * @returns {Promise<boolean>}
+         */
+        async load_tasks(context) {
+            //TODO do pagination
+            try {
+                const result = await axios.get('/api/v1/tasks', {
+                    headers: {
+                        Authorization: 'Bearer ' + context.getters.token,
+                    },
+                });
+                if (result.status === 200) {
+                    context.commit('push_tasks', result.data);
+                    return true;
+                }
+            } catch (e) {
+            }
+            return false;
+        },
+
+        /**
          * Удаление данных аутентификации
          * @param context
          */
@@ -144,11 +182,16 @@ export default new Vuex.Store({
         },
     },
     getters: {
+        token: state => state.account.token,
         authorized: state => {
             return state.account.authorized;
         },
         global_loading: state => {
             return state.application.global_loading;
         },
+        tasks: state => {
+            return state.application.tasks.data;
+        },
+
     },
 });
