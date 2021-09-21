@@ -1,8 +1,14 @@
 <template>
     <div class="container">
         <div class="row">
-<!--            <uiButton @click="load_tasks">Reload</uiButton>-->
-            <taskCard v-for="task in tasks" :key="task.id" :task="task" :loading="tasks_loading"/>
+            <uiButton @click="load_tasks">Reload</uiButton>
+            <taskCard
+                v-for="task in tasks"
+                :key="task.id"
+                :task="task"
+                :loading="tasks_loading"
+                @alert="task_alert"
+            />
         </div>
         <div v-if="tasks_loading && tasks.length === 0">Loading...</div>
         <uiAlert
@@ -36,10 +42,13 @@ export default {
             this.$store.dispatch('load_tasks').then(result => {
                 this.tasks_loading = false;
                 if (!result) {
-                    M.Modal.getInstance(document.getElementById('tasks-error-modal')).open();
+                    this.task_alert();
                 }
             });
-        }
+        },
+        task_alert() {
+            M.Modal.getInstance(document.getElementById('tasks-error-modal')).open();
+        },
     },
     computed: {
         ...mapGetters({

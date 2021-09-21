@@ -51,6 +51,10 @@ export default new Vuex.Store({
 
         push_tasks: (state, data) => {
             state.application.tasks.data = data;
+        },
+
+        delete_task: (state, id) => {
+            state.application.tasks.data = state.application.tasks.data.filter(item => item.id !== id);
         }
 
         /**
@@ -152,6 +156,15 @@ export default new Vuex.Store({
         },
 
         /**
+         * Удаление данных аутентификации
+         * @param context
+         */
+        signout(context) {
+            context.commit('unauthorize');
+        },
+
+
+        /**
          * Загрузка всех задач
          * @param context
          * @returns {Promise<boolean>}
@@ -174,12 +187,26 @@ export default new Vuex.Store({
         },
 
         /**
-         * Удаление данных аутентификации
+         * Удаление задачи по id
          * @param context
+         * @param id
+         * @returns {Promise<boolean>}
          */
-        signout(context) {
-            context.commit('unauthorize');
-        },
+        async delete_task(context, id) {
+            try {
+                const result = await axios.delete('/api/v1/tasks/' + id, {
+                    headers: {
+                        Authorization: 'Bearer ' + context.getters.token,
+                    },
+                });
+                if (result.status === 200) {
+                    context.commit('delete_task', id);
+                    return true;
+                }
+            } catch (e) {
+            }
+            return false;
+        }
     },
     getters: {
         token: state => state.account.token,

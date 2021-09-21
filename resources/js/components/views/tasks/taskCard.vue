@@ -1,7 +1,7 @@
 <template>
     <div class="col m6">
         <div class="card blue-grey darken-1">
-            <div v-if="loading" class="task-loading-wrapper">
+            <div v-if="loading || self_loading" class="task-loading-wrapper">
                 <div class="progress">
                     <div class="indeterminate"></div>
                 </div>
@@ -11,14 +11,16 @@
                 <p>{{ task.description }}</p>
             </div>
             <div class="card-action">
-                <div class="fixed-action-btn btn-task-control" :id="'btn-task-control' + this._uid" v-show="!loading">
+                <div class="fixed-action-btn btn-task-control" :id="'btn-task-control' + this._uid"
+                     v-show="!loading && !self_loading">
                     <a class="btn-floating btn-large red">
                         <i class="large material-icons">mode_edit</i>
                     </a>
                     <ul>
                         <li><a class="btn-floating green"><i class="material-icons">visibility</i></a></li>
                         <li><a class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
-                        <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                        <li><a class="btn-floating red" @click="delete_click"><i class="material-icons">delete</i></a>
+                        </li>
                         <li><a class="btn-floating blue"><i class="material-icons">turned_in_not</i></a></li>
                     </ul>
                 </div>
@@ -32,6 +34,11 @@ import uiButton from "../../gui/uiButton";
 
 export default {
     name: "taskCard",
+    data() {
+        return {
+            self_loading: false,
+        }
+    },
     props: {
         task: {
             type: Object,
@@ -46,6 +53,17 @@ export default {
         M.FloatingActionButton.init(document.getElementById('btn-task-control' + this._uid), {
             direction: 'left'
         });
+    },
+    methods: {
+        delete_click() {
+            this.self_loading = true;
+            this.$store.dispatch('delete_task', this.task.id).then(result => {
+                if (!result) {
+                    this.$emit('alert');
+                }
+                this.self_loading = false;
+            });
+        },
     },
     components: {
         uiButton,
