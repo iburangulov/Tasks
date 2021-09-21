@@ -30,6 +30,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::post('/signup', [\App\Http\Controllers\api\v1\AuthController::class, 'signUp']);
         Route::post('/signin', [\App\Http\Controllers\api\v1\AuthController::class, 'signIn']);
+        Route::post('/check', [\App\Http\Controllers\api\v1\AuthController::class, 'check']);
 
     });
 

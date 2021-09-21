@@ -53,17 +53,19 @@ export default new Vuex.Store({
 
             const email = localStorage.getItem('email');
             const password = localStorage.getItem('password');
+            const token = localStorage.getItem('token');
 
             if (typeof email === 'string' && email.length > 0 &&
-                typeof password === 'string' && password.length > 0) {
-
+                typeof password === 'string' && password.length > 0 &&
+                typeof token === 'string' && email.length > 0) {
                 try {
-                    const result = await axios.post('/api/v1/user/signin', {
+                    const result = await axios.post('/api/v1/user/check', {
                         email: email,
                         password: password,
+                        token: token,
                         device_name: 'spa',
                     });
-                    if (result.status === 200) {
+                    if (result.status === 200 && result.data.length > 0) {
                         context.commit('authorize', {
                             email: email,
                             password: password,
@@ -93,7 +95,7 @@ export default new Vuex.Store({
                     password: data.password,
                     device_name: 'spa',
                 });
-                if (result.status === 200) {
+                if (result.status === 200 && result.data.length > 0) {
                     context.commit('authorize', {
                         email: data.email,
                         password: data.password,
@@ -121,7 +123,7 @@ export default new Vuex.Store({
                     password: data.password,
                     device_name: 'spa',
                 });
-                if (result.status === 200) {
+                if (result.status === 200 && result.data.length > 0) {
                     context.commit('authorize', {
                         email: data.email,
                         password: data.password,
