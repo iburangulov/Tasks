@@ -64,10 +64,13 @@ export default new Vuex.Store({
                         device_name: 'spa',
                     });
                     if (result.status === 200) {
-                        context.commit('authorize', email, password, result.data);
+                        context.commit('authorize', {
+                            email: email,
+                            password: password,
+                            token: result.data,
+                        });
                     }
                 } catch (e) {
-                    context.commit('unauthorize');
                 }
             } else {
                 context.commit('unauthorize');
@@ -100,6 +103,43 @@ export default new Vuex.Store({
             } catch (e) {
             }
             context.commit('finish_global_loading');
+        },
+
+        /**
+         * Регистрация, получение токена
+         * @param context
+         * @param data
+         * @returns {Promise<void>}
+         */
+        async signup(context, data) {
+            context.commit('start_global_loading');
+            context.commit('unauthorize');
+
+            try {
+                const result = await axios.post('/api/v1/user/signup', {
+                    name: data.name,
+                    email: data.email,
+                    password: data.password,
+                    device_name: 'spa',
+                });
+                if (result.status === 200) {
+                    context.commit('authorize', {
+                        email: data.email,
+                        password: data.password,
+                        token: result.data,
+                    });
+                }
+            } catch (e) {
+            }
+            context.commit('finish_global_loading');
+        },
+
+        /**
+         * Удаление данных аутентификации
+         * @param context
+         */
+        signout(context) {
+            context.commit('unauthorize');
         },
     },
     getters: {

@@ -19,8 +19,14 @@ export default {
     },
     mounted() {
         this.$store.dispatch('init').then(() => {
+            if (this.$route.meta.auth !== false && !this.$store.getters.authorized) {
+                this.$router.push({ name: 'signin' });
+            } else if (this.$route.meta.guest !== false && this.$store.getters.authorized) {
+                this.$router.push({ name: 'index' });
+            }
+
             this.$router.beforeEach( (to, from, next) => {
-                if (to.meta.auth === true && !this.$store.getters.authorized) {
+                if (to.meta.auth !== false && !this.$store.getters.authorized) {
                     next({ name: 'signin' });
                 } else if (to.meta.guest === true && this.$store.getters.authorized) {
                     next({ name: 'index' });
