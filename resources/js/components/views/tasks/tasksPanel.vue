@@ -1,6 +1,6 @@
 <template>
-    <div class="tasks-panel">
-        <taskCard v-for="item in 1000" :key="item"/>
+    <div class="row tasks-panel">
+        <taskCard v-for="item in 100" :key="item"/>
     </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {
     components: {
         taskCard,
     },
+    mounted() {
+        M.FloatingActionButton.init(document.querySelectorAll('.task-card-actions'), {
+            direction: 'left',
+            hoverEnabled: false,
+        });
+    }
 }
 </script>
 

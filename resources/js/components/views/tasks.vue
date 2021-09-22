@@ -43,14 +43,14 @@ import mainPanel from "./tasks/mainPanel";
 
 export default {
     name: "tasks",
-    data: function () {
+    // data: function () {
         // return {
         //     tasks_loading: false,
         //     task_opened: false,
         //     task_choosen: null,
         //     task_creating: false,
         // }
-    },
+    // },
     mounted() {
         // this.load_tasks();
     },

@@ -1,5 +1,25 @@
 <template>
-    <h1>task</h1>
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Card Title</span>
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                        I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                    <div class="fixed-action-btn task-card-actions">
+                        <a class="btn-floating btn-large red">
+                            <i class="large material-icons">tune</i>
+                        </a>
+                        <ul>
+                            <li><a class="btn-floating yellow darken-1"><i class="material-icons">edit</i></a></li>
+                            <li><a class="btn-floating green"><i class="material-icons">remove_red_eye</i></a></li>
+                            <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </div>
 <!--    <div class="col m6">-->
 <!--        <div class="card blue-grey darken-1">-->
 <!--            <div v-if="loading || self_loading" class="task-loading-wrapper">-->
@@ -61,12 +81,9 @@ export default {
     //         default: false,
     //     }
     // },
-    // mounted() {
-    //     M.FloatingActionButton.init(document.getElementById('btn-task-control' + this._uid), {
-    //         direction: 'left',
-    //         hoverEnabled: false,
-    //     });
-    // },
+    mounted() {
+
+    },
     // methods: {
     //     delete_click() {
     //         this.self_loading = true;
@@ -119,10 +136,10 @@ export default {
 //    .task-short-description
 //        word-break: break-all
 //
-//.card-action
-//    padding-top: 80px
-//
-//    .btn-task-control
-//        position: absolute
+.card-action
+    padding-top: 80px
+
+    .fixed-action-btn
+        position: absolute
 
 </style>

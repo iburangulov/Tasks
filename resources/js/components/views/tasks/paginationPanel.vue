@@ -20,5 +20,5 @@ export default {
 
 <style scoped lang="sass">
 .tasks-pagination
-    margin-top: 20px
+    margin: 20px auto
 </style>
